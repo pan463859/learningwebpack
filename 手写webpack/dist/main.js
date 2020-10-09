@@ -1,1 +1,24 @@
-!function(e){var n={};function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:r})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,n){if(1&n&&(e=t(e)),8&n)return e;if(4&n&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(t.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&n&&"string"!=typeof e)for(var o in e)t.d(r,o,function(n){return e[n]}.bind(null,o));return r},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=0)}([function(e,n){new class extends class{run(e){console.log("car begin to run ")}}{constructor(e){this.name=e.name,this.engine=e.engine}}}]);
+(function (graph) {
+    function require(module) {
+        function localrequire(relativepath) {
+            return require(graph[module].dependencies[relativepath])
+        }
+        var exports = {};
+        (function (require, exports, code) {
+            eval(code)
+        })(localrequire, exports, graph[module].code);
+        return exports;
+    }
+    require('./src/index.js')
+})({
+    "./src/index.js":
+    {
+        "dependencies":
+            { "./hello.js": "./src/hello.js" },
+        "code": "\"use strict\";\n\nvar _hello = require(\"./hello.js\");\n\ndocument.write((0, _hello.say)('webpack')); //what's in entry file\n//what dependences in this file"
+    },
+    "./src/hello.js": {
+        "dependencies": {},
+        "code": "\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.say = say;\n\nfunction say(name) {\n  return \"hello\" + name;\n}"
+    }
+})
